@@ -4,11 +4,12 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-/* Body styling */
+/* Body styling with animated gradient background */
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite; /* Gradient animation */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,103 +17,109 @@ body {
     flex-direction: column;
     color: #333;
     padding: 20px;
-    /* Adding a little more breathing space for responsiveness */
+    overflow: hidden; /* Prevents the background from overflowing on scroll */
 }
 
-/* Container for content */
+/* Animation for the gradient background */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Container with a semi-transparent background */
 .container {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.9); /* White with transparency */
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Slightly more shadow for depth */
-    padding: 20px;
-    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Soft shadow */
+    padding: 30px;
+    width: 90%;
     max-width: 500px;
     text-align: center;
-    border: 1px solid #ddd; /* Subtle border for better definition */
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(15px); /* Blurring the background behind the container */
+    border: 1px solid #ddd;
+}
+
+/* Adding a stylish border effect for the container */
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+    border-radius: 10px;
+    z-index: -1; /* Place the gradient behind the content */
+    filter: blur(10px); /* Adding blur to the background gradient */
 }
 
 /* Heading */
 h1 {
     margin-bottom: 20px;
-    font-size: 24px; /* Slightly bigger text */
+    font-size: 26px;
     color: #4CAF50;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: fadeInText 2s ease-in-out; /* Smooth text fade-in effect */
 }
 
-/* Input group for better spacing */
-.input-group {
-    margin-bottom: 20px; /* Increased space for clarity */
-    text-align: left;
-    font-size: 14px;
+/* Fade-in text animation */
+@keyframes fadeInText {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.input-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #333;
-}
-
-/* Input and select styling */
+/* Inputs and button design */
 input, select {
     width: 100%;
-    padding: 12px; /* Larger padding for better readability */
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s ease-in-out;
+    margin-bottom: 15px;
 }
 
-/* Hover effect on inputs for focus */
+/* Hover effect for inputs */
 input:focus, select:focus {
     border-color: #4CAF50;
-    outline: none; /* Remove outline */
+    outline: none;
 }
 
-/* Canvas for a neat look */
-canvas {
-    width: 100%;
-    height: 200px;
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    background: #fefefe;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-/* Hover effect for canvas (a little interactivity) */
-canvas:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-}
-
-/* Button styling */
+/* Button styling with smooth gradient and hover effect */
 button {
     background: linear-gradient(135deg, #4CAF50, #2E7D32);
     color: white;
     border: none;
     cursor: pointer;
     font-weight: bold;
-    transition: background 0.3s, transform 0.2s;
     padding: 12px 24px;
     font-size: 16px;
     border-radius: 8px;
+    transition: background 0.3s, transform 0.2s;
     margin: 5px;
-    width: 100%; /* Make button span full width on smaller screens */
-    box-sizing: border-box;
 }
 
-/* Hover effect for button */
 button:hover {
     background: linear-gradient(135deg, #45a049, #1B5E20);
     transform: translateY(-2px);
 }
 
-/* Button: Active state for better interaction */
-button:active {
-    transform: translateY(1px);
-}
-
-/* Footer styling */
 footer {
     margin-top: 20px;
     text-align: center;
@@ -120,10 +127,10 @@ footer {
     color: #666;
 }
 
-/* Make container and body responsive for smaller screens */
+/* Make it responsive */
 @media (max-width: 600px) {
     .container {
-        padding: 15px;
+        padding: 20px;
     }
 
     button {
@@ -132,10 +139,6 @@ footer {
     }
 
     input, select {
-        font-size: 15px;
-    }
-
-    canvas {
-        height: 180px; /* Slightly smaller canvas on smaller screens */
+        font-size: 14px;
     }
 }
